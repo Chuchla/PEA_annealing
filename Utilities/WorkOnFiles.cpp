@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <limits>
 //Czytanie grafu z xml
 //Czytanie grafu z txt
 
@@ -19,7 +20,7 @@ std::vector<std::vector<float>> WorkOnFiles::GetGraphFromTSPFile(const std::stri
     std::vector<std::vector<float>> graph;
     bool startReading{};
     int numberOfVertecies{};
-
+    std::vector<float> row;
     if (!file.is_open()) {
         throw std::runtime_error("Nie można otworzyć pliku");
     }
@@ -34,7 +35,6 @@ std::vector<std::vector<float>> WorkOnFiles::GetGraphFromTSPFile(const std::stri
 
         if (line.find("EDGE_WEIGHT_SECTION") != std::string::npos) {
             startReading = true;
-            continue;
         }
         if (startReading and
             ((line.find("EOS")) != std::string::npos or (line.find("DISPLAY_DATA_SECTION")) != std::string::npos)) {
@@ -42,21 +42,26 @@ std::vector<std::vector<float>> WorkOnFiles::GetGraphFromTSPFile(const std::stri
         }
         if (startReading) {
             std::istringstream iss(line);
-            std::vector<float> row;
             float weight;
             while (iss >> weight) {
                 //New row
-                if (weight >= 9000) {
+                if(weight > 9001) weight = std::numeric_limits<float>::infinity();
+                if (row.size() == numberOfVertecies) {
                     graph.push_back(row);
+                    row.erase(row.begin(), row.end());
+                    row.push_back(weight);
+
+                } else {
+                    row.push_back(weight);
                 }
-                row.push_back(weight);
+
 
             }
-            }
-
         }
 
 
+    }
+    graph.push_back(row);
     return graph;
 }
 
