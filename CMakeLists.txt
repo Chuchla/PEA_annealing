@@ -3,4 +3,4 @@ project(PEA_annealing)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(PEA_annealing main.cpp)
+add_executable(PEA_annealing main.cpp Utilities/WorkOnFiles.cpp Utilities/WorkOnFiles.h Algorithm/SimulatedAnnealing.cpp Algorithm/SimulatedAnnealing.h)

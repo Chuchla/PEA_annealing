@@ -1,0 +1,14 @@
+//
+// Created by GS65 on 14.11.2023.
+//
+
+#ifndef PEA_ANNEALING_SIMULATEDANNEALING_H
+#define PEA_ANNEALING_SIMULATEDANNEALING_H
+
+
+class SimulatedAnnealing {
+
+};
+
+
+#endif //PEA_ANNEALING_SIMULATEDANNEALING_H
