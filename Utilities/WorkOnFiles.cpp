@@ -9,13 +9,47 @@
 #include <iostream>
 #include <sstream>
 #include <limits>
-#include <cmath>
 
-
-//Czytanie grafu z xml
-//Czytanie grafu z txt
 
 WorkOnFiles::WorkOnFiles() {}
+
+std::vector<std::vector<float>> WorkOnFiles::GetGraph(const std::string &filePath){
+    auto dotPosition = filePath.rfind('.');
+    std::string extension{};
+    if(dotPosition != std::string::npos){
+        extension = filePath.substr(dotPosition + 1);
+    } else{
+        throw std::runtime_error("Nie podano rozszerzenia pliku");
+    }
+
+    if(extension == "txt") return GetGraphFromTXTFile(filePath);
+    else if(extension == "tsp" or extension == "atsp") return GetGraphFromTSPFile(filePath);
+    else throw std::runtime_error("Nie obslugiwany format pliku zrodlowego");
+
+}
+std::vector<std::vector<float>> WorkOnFiles::GetGraphFromTXTFile(const std::string &filePath){
+    std::ifstream file(filePath);
+    std::string line;
+    getline(file,line);
+    int numberOfVertices{};
+    std::istringstream iss(line);
+    iss >> numberOfVertices;
+    std::vector<std::vector<float>> graph(numberOfVertices, std::vector<float>(numberOfVertices, 0));
+    int row{};
+    while(std::getline(file,line)){
+        std::istringstream iss(line);
+        for(int i = 0; i < numberOfVertices; i++){
+            if(i != row) iss >> graph[row][i];
+            else{
+                iss >> graph[row][i];
+                graph[row][i] = std::numeric_limits<float>::infinity();
+            }
+        }
+        row++;
+    }
+
+    return graph;
+}
 
 std::vector<std::vector<float>> WorkOnFiles::FullMatrix(const std::string &filePath) {
     std::ifstream file(filePath);
@@ -178,13 +212,11 @@ std::vector<std::vector<float>> WorkOnFiles::GetGraphFromTSPFile(const std::stri
             auto found = line.find("EDGE_WEIGHT_TYPE:");
             std::istringstream iss(line.substr(found + 17));
             iss >> edgeWeightType;
-            std::cout << edgeWeightType << std::endl;
         }
         if (line.find("EDGE_WEIGHT_FORMAT:") != std::string::npos) {
             auto found = line.find("EDGE_WEIGHT_FORMAT:");
             std::istringstream iss(line.substr((found + 19)));
             iss >> edgeWeightFormat;
-            std::cout << edgeWeightFormat << std::endl;
             break;
         }
     }
