@@ -11,12 +11,13 @@ class WorkOnFiles{
 public:
     WorkOnFiles();
 
+    std::vector<std::vector<float>> GetGraph(const std::string &filePath);
+private:
+
     std::vector<std::vector<float>> GetGraphFromTSPFile(const std::string& filePath);
+
     std::vector<std::vector<float>> GetGraphFromTXTFile(const std::string& filePath);
 
-    std::vector<std::vector<float>> GetGraph(const std::string &filePath);
-
-private:
     std::vector<std::vector<float>> FullMatrix(const std::string &filePath);
 
     std::vector<std::vector<float>> EUC2D(const std::string &filePath);
