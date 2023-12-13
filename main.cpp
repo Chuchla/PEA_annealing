@@ -7,7 +7,7 @@ int main() {
     using namespace std;
     using namespace lemon;
 
-    auto graph = WorkOnFiles::GetGraph("/home/chuchla/CLionProjects/PEA_annealing/Instances/TXT/tsp_6_1.txt");
+    auto graph = WorkOnFiles::GetGraph("/home/chuchla/CLionProjects/PEA_annealing/Instances/NonSymetric/ftv170.atsp");
     for(auto row : graph){
         for(auto element : row){
             std::cout << element << " ";
@@ -20,6 +20,14 @@ int main() {
         std::cout << element << " ";
     }
     auto distance = Solution::GetDistance(graph ,randomSol);
-    std::cout << std::endl << distance;
+    std::cout << std::endl << distance << std::endl << randomSol.size()<< std::endl;
+
+    auto GreedySol = Solution::GetGreedySolution(graph);
+    for(auto element : GreedySol){
+        std::cout << element << " ";
+    }
+    distance = Solution::GetDistance(graph ,GreedySol);
+    std::cout << std::endl << distance << std::endl;
+    std::cout << GreedySol.size();
     return 0;
 }

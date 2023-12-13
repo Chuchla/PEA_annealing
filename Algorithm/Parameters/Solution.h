@@ -14,6 +14,15 @@ public:
     static std::vector<int> GetRandomSolution(const std::vector<std::vector<float>> &graph);
 
     static float GetDistance(const std::vector<std::vector<float>> &graph, const std::vector<int> &path);
+
+
+   static std::vector<int> GetGreedySolution(const std::vector<std::vector<float>> &graph);
+
+    static std::pair<std::vector<int>, float> Prim(std::vector<std::vector<float>> graph);
+
+    std::pair<std::vector<int>, float> Christofides(std::vector<std::vector<float>> graph);
+
+    std::vector<int> OddVertecies(std::vector<int> mst);
 };
 
 
