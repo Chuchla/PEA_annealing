@@ -7,4 +7,6 @@ add_executable(PEA_annealing main.cpp Utilities/WorkOnFiles.cpp Utilities/WorkOn
         Algorithm/Parameters/Temperature.cpp
         Algorithm/Parameters/Temperature.h
         Algorithm/Parameters/Solution.cpp
-        Algorithm/Parameters/Solution.h)
+        Algorithm/Parameters/Solution.h
+        Algorithm/Parameters/Neighborhood.cpp
+        Algorithm/Parameters/Neighborhood.h)

@@ -13,9 +13,9 @@ using namespace std;
 class SimulatedAnnealing {
 
 
-
-    std::pair<std::vector<int>, float> RunSimulatedAnnealing(const std::string &filePath);
 public:
+    static std::pair<std::vector<int>, float> RunSimulatedAnnealing(const std::string &filePath);
+
 
     std::pair<std::vector<int>, float> Christofides(std::vector<std::vector<float>> graph);
 
@@ -23,10 +23,6 @@ public:
 
     std::pair<std::vector<int>, float> getRandomSolution(vector<vector<float>>);
 
-
-    vector<int> OddVertecies(vector<std::vector<float>> mst);
-
-    vector<int> OddVertecies(vector<int> mst);
 };
 
 

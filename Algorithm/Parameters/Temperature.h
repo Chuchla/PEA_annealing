@@ -6,24 +6,25 @@
 #define PEA_ANNEALING_TEMPERATURE_H
 
 
+#include <vector>
+
 class Temperature {
 
+public:
+    static float Geometric(float T, float alfa);
 
-    float Geometric(float T, float alfa);
+    static float Cauchy(float T, float alfa);
 
-    float Boltzman(float T, float alfa);
+    static float Linear(float T, float alfa);
 
-    float Cauchy(float T, float alfa);
+    static float Exponential(float T, float alfa, int iteration);
 
-    float Linear(float T, float alfa);
+    static float Logaritmic(float T, int k);
 
-    float Boltzman(float T);
+    static float Boltzman(float T, float T0, int k);
 
-    float Exponential(float T, float alfa, int iteration);
-
-    float Logaritmic(float T, int k);
-
-    float Boltzman(float T, float T0, int k);
+    static float StartingTemperature(std::vector<int> startingPath, float startingDistance, double tau,
+                              std::vector<std::vector<float>> graph);
 };
 
 #endif //PEA_ANNEALING_TEMPERATURE_H

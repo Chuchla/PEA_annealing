@@ -7,6 +7,24 @@
 
 #include "Temperature.h"
 #include <math.h>
+#include <vector>
+#include "Solution.h"
+#include "Neighborhood.h"
+float Temperature::StartingTemperature(std::vector<int> startingPath, float startingDistance, double tau, std::vector<std::vector<float>> graph){
+    using namespace std;
+    vector<float> costs{};
+    long double sum{};
+    for(int i = 0 ; i <100 ; i++){
+     auto neighbour = Neighborhood::Swap(startingPath);
+     auto neighboutDistance = Solution::GetDistance(graph, neighbour);
+     costs.push_back(abs(neighboutDistance - startingDistance));
+    }
+    for(auto element : costs){
+        sum+=element;
+    }
+    sum/=costs.size();
+    return (-sum)/ log(tau);
+}
 
 float Temperature::Geometric(float T, float alfa) {
     return T * alfa;

@@ -38,7 +38,7 @@ std::vector<int> Solution::GetRandomSolution(const std::vector<std::vector<float
         randomPath.push_back(vistied);
         verteciesInPath[vistied] = true;
     }
-    randomPath.push_back(randomPath[0]);
+
     return randomPath;
 }
 
@@ -68,7 +68,7 @@ std::vector<int> Solution::GetGreedySolution(const std::vector<std::vector<float
             }
         }
     }
-    greedyPath.push_back(greedyPath[0]);
+
     return greedyPath;
 }
 
@@ -77,6 +77,7 @@ float Solution::GetDistance(const std::vector<std::vector<float>> &graph, const 
     for (int i = 0; i < path.size() - 1; i++) {
         distance += graph[path[i]][path[i + 1]];
     }
+    distance+=graph[path.size()-1][path[0]];
     return distance;
 }
 
