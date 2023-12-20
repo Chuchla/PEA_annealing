@@ -9,9 +9,71 @@
 #include <iostream>
 #include <sstream>
 #include <limits>
+
 //ATT, GEO
 
-WorkOnFiles::WorkOnFiles() {}
+std::vector<std::tuple<std::string, int, float>> WorkOnFiles::ReadFromIni(const std::string &filePath){
+    std::fstream file(filePath);
+    std::vector<std::tuple<std::string, int ,float>> data;
+    std::string line;
+    if(file.is_open()){
+        while(std::getline(file, line)){
+            std::stringstream iss(line);
+            std::string name{};
+            int repetitions{};
+            float distance{};
+            iss >> name;
+            iss >> repetitions;
+            iss >> distance;
+
+            data.push_back({name,repetitions,distance});
+
+        }
+    }
+    return data;
+}
+void WorkOnFiles::WriteToCSV(const std::string& fileName,std::vector<std::tuple<int, long long, float, float, std::vector<int>>> data){
+    std::string fileCsv = fileName.substr(0,fileName.find_last_of('.'));
+    fileCsv = fileCsv + ".csv";
+    std::ofstream file(fileCsv);
+
+    if(file.is_open()){
+        file << "Numer epoki,Czas[ms],Temp,Dystans,Sciezka\n";
+
+        for(const auto& element : data ){
+            file << std::get<0>(element) << ",";
+            file << std::get<1>(element) << ",";
+            file << std::get<2>(element) << ",";
+            file << std::get<3>(element) << ",<";
+
+            for(const auto& vertex : std::get<4>(element)){
+                file << vertex << " ";
+            }
+            file << ">\n";
+        }
+    }
+    file.close();
+}
+void WorkOnFiles::WriteTestToCSV(const std::string& outputName, std::vector<std::tuple<std::string,float,long long, long long, int, float, float>> data){
+    std::ofstream file(outputName);
+    if(file.is_open()){
+        file<<"Nazwa instancji,Sredni koszt najlepszych rozwiazan,Sredni czas[ms],Srednie zuzycie pamieci,Rozmiar instancji,Optymalny koszt,Procent bledu\n";
+
+        for(const auto& element : data){
+            file << std::get<0>(element) << ",";
+            file << std::get<1>(element) << ",";
+            file << std::get<2>(element) << ",";
+            file << std::get<3>(element) << ",";
+            file << std::get<4>(element) << ",";
+            file << std::get<5>(element) << ",";
+            file << std::get<6>(element) << ",";
+            file << "\n";
+        }
+    }
+    file.close();
+}
+
+
 
 std::vector<std::vector<float>> WorkOnFiles::GetGraph(const std::string &filePath){
     auto dotPosition = filePath.rfind('.');
@@ -189,7 +251,7 @@ std::vector<std::vector<float>> WorkOnFiles::EUC2D(const std::string &filePath) 
         for (int j = 0; j < coordinates.size(); j++) {
             if (i != j) {
                 float dx = coordinates[j].first - coordinates[i].first;
-                float dy = coordinates[j].second - coordinates[j].second;
+                float dy = coordinates[j].second - coordinates[i].second;
                 graph[i][j] = std::sqrt(dx * dx + dy * dy);
             } else graph[i][j] = std::numeric_limits<float>::infinity();
         }

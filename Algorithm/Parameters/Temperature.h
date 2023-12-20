@@ -19,12 +19,12 @@ public:
 
     static float Exponential(float T, float alfa, int iteration);
 
-    static float Logaritmic(float T, int k);
-
     static float Boltzman(float T, float T0, int k);
 
     static float StartingTemperature(std::vector<int> startingPath, float startingDistance, double tau,
                               std::vector<std::vector<float>> graph);
+
+    static float Logaritmic(float T, float alfa, long long int k);
 };
 
 #endif //PEA_ANNEALING_TEMPERATURE_H

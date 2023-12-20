@@ -11,9 +11,13 @@
 class Neighborhood {
 public:
 
-    static std::vector<int> TwoOpt(std::vector<int> path);
+
 
     static std::vector<int> Swap(std::vector<int> path);
+
+    static void twoOptSwap(std::vector<int> &route, int i, int k);
+
+    static std::vector<int> twoOptNeighbour(const std::vector<int> &currentSolution);
 };
 
 

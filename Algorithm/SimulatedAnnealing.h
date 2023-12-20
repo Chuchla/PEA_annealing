@@ -14,7 +14,7 @@ class SimulatedAnnealing {
 
 
 public:
-    static std::pair<std::vector<int>, float> RunSimulatedAnnealing(const std::string &filePath);
+    static vector<tuple<int, long long int, float, float, std::vector<int>>> RunSimulatedAnnealing(const std::string &filePath);
 
 
     std::pair<std::vector<int>, float> Christofides(std::vector<std::vector<float>> graph);

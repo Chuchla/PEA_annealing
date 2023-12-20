@@ -12,34 +12,17 @@
 
 
 std::vector<int> Solution::GetRandomSolution(const std::vector<std::vector<float>> &graph) {
-    int numberOfVertecies = graph.size();
-    std::random_device randomDevice;
-    std::mt19937 gen(randomDevice());
-    std::uniform_int_distribution<int> distribution(0, numberOfVertecies - 1);
-    std::vector<bool> verteciesInPath(numberOfVertecies, false);
-    std::vector<int> randomPath;
+    std::vector<int> path(graph.size());
 
-    int vistied = distribution(gen);
-    randomPath.push_back(vistied);
-    verteciesInPath[vistied] = true;
+    std::iota(path.begin(), path.end(), 0);
+    
+    std::random_device rd;
+    std::mt19937 g(rd());
 
-    for (int i = 1; i < numberOfVertecies; i++) {
-        std::vector<int> nextPossible;
-        for (int j = 0; j < numberOfVertecies; j++) {
-            if (graph[vistied][j] && graph[vistied][j] != std::numeric_limits<float>::infinity() &&
-                !verteciesInPath[j]) {
-                nextPossible.push_back(j);
-            }
-        }
-        if (nextPossible.empty()) break;
+    // Mieszamy miasta, aby uzyskać losową trasę
+    std::shuffle(path.begin(), path.end(), g);
 
-        std::uniform_int_distribution<int> dis(0, nextPossible.size() - 1);
-        vistied = nextPossible[dis(gen)];
-        randomPath.push_back(vistied);
-        verteciesInPath[vistied] = true;
-    }
-
-    return randomPath;
+    return path;
 }
 
 std::vector<int> Solution::GetGreedySolution(const std::vector<std::vector<float>> &graph) {
@@ -74,10 +57,10 @@ std::vector<int> Solution::GetGreedySolution(const std::vector<std::vector<float
 
 float Solution::GetDistance(const std::vector<std::vector<float>> &graph, const std::vector<int> &path) {
     float distance{};
-    for (int i = 0; i < path.size() - 1; i++) {
+    for (int i = 0; i < path.size()-1; i++) {
         distance += graph[path[i]][path[i + 1]];
     }
-    distance+=graph[path.size()-1][path[0]];
+    distance+=graph[path[path.size()-1]][path[0]];
     return distance;
 }
 

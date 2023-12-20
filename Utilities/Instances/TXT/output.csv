@@ -1,0 +1,8 @@
+Nazwa instancji,Sredni koszt najlepszych rozwiazan,Sredni czas[ms],Srednie zuzycie pamieci,Rozmiar instancji,Optymalny koszt,Procent bledu
+tsp_6_1.txt,132,312,0,6,132,0,
+tsp_10.txt,212,950,0,10,212,0,
+tsp_12.txt,264,1336,0,12,264,0,
+tsp_13.txt,269,1572,0,13,269,0,
+tsp_14.txt,282,1840,0,14,282,0,
+tsp_15.txt,291,2141,0,15,291,0,
+tsp_17.txt,39,2742,0,17,39,0,

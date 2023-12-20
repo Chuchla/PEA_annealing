@@ -6,6 +6,9 @@
 #include <vector>
 #include <random>
 #include <memory>
+#include <algorithm>
+#include "Solution.h"
+
 using namespace std;
 
 vector<int> Neighborhood::Swap(vector<int> path){
@@ -33,7 +36,35 @@ vector<int> Neighborhood::Swap(vector<int> path){
 
 
 }
-vector<int> Neighborhood::TwoOpt(vector<int> path){
-    //
-    return {};
+void Neighborhood::twoOptSwap(std::vector<int>& route, int i, int k) {
+    while (i < k) {
+        std::swap(route[i], route[k]);
+        i++;
+        k--;
+    }
 }
+
+std::vector<int> Neighborhood::twoOptNeighbour(const std::vector<int>& currentSolution) {
+    int n = currentSolution.size();
+    std::vector<int> newSolution = currentSolution;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(1, n - 1);
+
+    int i = dist(gen);
+    int k;
+    do {
+        k = dist(gen);
+    } while (i == k);
+
+    if (i > k) {
+        std::swap(i, k);
+    }
+    twoOptSwap(newSolution, i, k);
+
+    return newSolution;
+}
+
+
+

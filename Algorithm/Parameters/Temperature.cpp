@@ -20,6 +20,7 @@ float Temperature::StartingTemperature(std::vector<int> startingPath, float star
      costs.push_back(abs(neighboutDistance - startingDistance));
     }
     for(auto element : costs){
+        if(!isinf(element))
         sum+=element;
     }
     sum/=costs.size();
@@ -36,7 +37,7 @@ float Temperature::Boltzman(float T, float T0, int k) {
 }
 
 float Temperature::Cauchy(float T, float alfa) {
-    return 0;
+    return 0;;
 }
 
 float Temperature::Linear(float T, float constant) {
@@ -47,7 +48,9 @@ float Temperature::Exponential(float T, float alfa, int k) {
     return powf(alfa, k) * T;
 }
 
-float Temperature::Logaritmic(float T, int k) {
-    return (T) / (1 + log(1 + k));
+float Temperature::Logaritmic(float T, float alfa, long long k) {
+    float logarithm = 1+log(1+k);
+    float Temperature = (T)/ logarithm;
+    return Temperature;
 }
 
